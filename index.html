@@ -777,27 +777,25 @@
     <footer>
         <div class="footer-container">
             <div class="personal-branding">
-                <h3>Designed by Alex Carter</h3>
+                <h3>Designed by prasanth</h3>
                 <p>Senior Front-End Developer specializing in creating intuitive, user-centered web applications with modern technologies and responsive design principles.</p>
                 
                 <div class="social-links">
                     <a href="https://www.linkedin.com/in/prasanth-k-741b64381" class="social-link" target="_blank" aria-label="LinkedIn Profile">
                         <i class="fab fa-linkedin-in"></i>
                     </a>
-                    <a href="https://instagram.com/alexcarter.dev" class="social-link" target="_blank" aria-label="Instagram Profile">
+                    <a href="https://www.instagram.com/reverence_004?igsh=eXN3NWp0cDFwdzR5" class="social-link" target="_blank" aria-label="Instagram Profile">
                         <i class="fab fa-instagram"></i>
                     </a>
                     <a href="https://github.com/alexcarter" class="social-link" target="_blank" aria-label="GitHub Profile">
                         <i class="fab fa-github"></i>
                     </a>
-                    <a href="https://twitter.com/alexcarter_dev" class="social-link" target="_blank" aria-label="Twitter Profile">
-                        <i class="fab fa-twitter"></i>
-                    </a>
+                    
                 </div>
             </div>
             
             <div class="copyright">
-                <p>&copy; 2023 90-Day Aptitude Progress Tracker. All rights reserved. | Designed with <i class="fas fa-heart" style="color: var(--accent-color);"></i> by Alex Carter</p>
+                <p>&copy; 2025 90-Day Aptitude Progress Tracker. All rights reserved. | Designed with <i class="fas fa-heart" style="color: var(--accent-color);"></i>Prasanth</p>
             </div>
         </div>
     </footer>
@@ -882,7 +880,7 @@
         
         // Unsplash image IDs for different categories
         const mathImages = [
-            "photo-1509228468518-180dd4864904",
+            "day1-1.png",
             "photo-1635070041078-e363dbe005cb",
             "photo-1589256469067-ea99122bbdc4",
             "photo-1596495577886-d920f1fb7238",
@@ -959,13 +957,13 @@
             }
             
             // Generate unique photo URLs
-            const photoUrls = images.map(img => `https://images.unsplash.com/${img}?ixlib=rb-4.0.3&auto=format&fit=crop&w=1170&q=${80 + (i % 20)}`);
+            const photoUrls = images.map(img => `${img}${80 + (i % 20)}`);
             
             daysData.push({
                 day: i,
                 title: `Day ${i}: ${topic}`,
                 subtitle: `${category}`,
-                videoUrl: `https://www.youtube.com/embed/${videoId}`,
+                videoUrl: `${videoId}`,
                 videoTitle: `Learn ${topic.split(':')[0]} - Complete Tutorial`,
                 photos: photoUrls,
                 photoCaptions: imageCaptions,
