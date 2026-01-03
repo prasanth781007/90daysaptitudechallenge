@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>90 Days Aptitude Challenge</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gold: '#FFD700',
+                        darkbg: '#1a1a1a',
+                        cardbg: '#2d2d2d'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Scrollbar for sidebar */
+        ::-webkit-scrollbar { width: 6px; height: 6px; }
+        ::-webkit-scrollbar-track { background: #1a1a1a; }
+        ::-webkit-scrollbar-thumb { background: #444; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #FFD700; }
+    </style>
+</head>
+<body class="bg-darkbg text-gray-200 font-sans h-screen flex flex-col overflow-hidden">
+
+    <header class="w-full bg-black border-b border-gray-700 h-16 flex items-center justify-between px-6 z-50 shrink-0">
+        <div class="flex items-center gap-3">
+            <button id="menu-btn" class="md:hidden text-gold text-2xl focus:outline-none">&#9776;</button>
+            <h1 class="text-xl md:text-2xl font-bold text-white tracking-wide">
+                90 Days <span class="text-gold">Aptitude Challenge</span>
+            </h1>
+        </div>
+        <div class="text-sm text-gray-400 hidden md:block">
+            Progress: Day <span id="current-day-display">0</span>/90
+        </div>
+    </header>
+
+    <div class="flex flex-1 overflow-hidden relative">
+        <aside id="sidebar" class="w-64 bg-cardbg border-r border-gray-700 flex flex-col transform -translate-x-full md:translate-x-0 transition-transform duration-300 absolute md:relative z-40 h-full">
+            <div class="p-4 text-gold font-semibold uppercase text-sm tracking-wider border-b border-gray-600">
+                Curriculum Modules
+            </div>
+            <nav class="flex-1 overflow-y-auto p-2 space-y-2" id="nav-container"></nav>
+        </aside>
+
+        <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-30 hidden md:hidden"></div>
+
+        <main class="flex-1 overflow-y-auto p-4 md:p-8 bg-darkbg relative scroll-smooth" id="main-content">
+            
+            <div id="welcome-screen" class="flex flex-col items-center justify-center h-full text-center space-y-6">
+                <div class="w-24 h-24 rounded-full border-4 border-gold flex items-center justify-center text-4xl text-gold mb-4 shadow-[0_0_15px_rgba(255,215,0,0.5)]">90</div>
+                <h2 class="text-4xl font-bold text-white">Welcome</h2>
+                <p class="text-gray-400 max-w-lg">Select a Day from the sidebar to start learning.</p>
+            </div>
+
+            <div id="day-content" class="hidden max-w-6xl mx-auto space-y-8 pb-10">
+                
+                <div class="border-b border-gray-700 pb-4">
+                    <span class="text-gold font-bold tracking-widest uppercase text-sm" id="content-module">Module</span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-white mt-1" id="content-title">Day Title</h2>
+                </div>
+
+                <div class="bg-cardbg p-5 rounded-lg border-l-4 border-blue-500">
+                    <p class="text-gray-300 leading-relaxed" id="content-desc"></p>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    
+                    <div class="bg-cardbg rounded-lg shadow-lg flex flex-col h-[500px] border border-gray-700 relative p-8 items-center justify-center text-center">
+                        <div class="w-full h-full flex flex-col items-center justify-center space-y-6 border-2 border-dashed border-gray-600 rounded-xl p-6 bg-gray-800/50">
+                            
+                            <div class="space-y-2">
+                                <h4 class="text-2xl font-bold text-gold uppercase tracking-wider">Study Material</h4>
+                                <p class="text-gray-400">Download the official class notes below.</p>
+                            </div>
+
+                            <a id="btn-download-pdf" href="#" class="group w-full max-w-xs flex items-center justify-center gap-4 bg-gray-700 hover:bg-gold hover:text-black border border-gray-500 text-white font-bold py-5 px-6 rounded-lg transition-all duration-300 shadow-xl transform hover:-translate-y-1">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 group-hover:scale-110 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                </svg>
+                                <span class="text-lg">Download PDF</span>
+                            </a>
+                            
+                            <p class="text-xs text-gray-500 pt-4">File format: PDF • Size: ~2MB</p>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col gap-6 h-[500px]">
+                        <div class="bg-cardbg rounded-lg shadow-lg flex-1 border border-gray-700 overflow-hidden flex flex-col">
+                             <div class="p-2 bg-gray-800 border-b border-gray-600 text-xs text-gray-400 uppercase font-bold">Video Lecture</div>
+                             <iframe id="content-video" class="w-full h-full flex-1" src="" title="Video" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        </div>
+
+                        <div class="bg-cardbg rounded-lg shadow-lg flex-1 border border-gray-700 overflow-y-auto p-4 border-l-4 border-gold">
+                            <h3 class="text-lg font-semibold text-white mb-2">Practice Prompts</h3>
+                            <ul class="list-disc list-inside space-y-2 text-gray-300 text-sm" id="content-prompts"></ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="flex justify-between pt-4 border-t border-gray-700">
+                    <button id="prev-btn" class="px-6 py-2 bg-gray-700 hover:bg-gray-600 rounded text-white transition">Previous Day</button>
+                    <button id="next-btn" class="px-6 py-2 bg-gold hover:bg-yellow-500 rounded text-black font-bold transition">Next Day</button>
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script>
+        // --- DATA SETUP ---
+        // Updated: Removed 'audio'
+        const curriculumData = [
+    {
+        module: "Module 1: Number Systems (Days 1-14)",
+        days: [
+            {
+                day: 1,
+                title: "Introduction & Divisibility Rules",
+                desc: "Mastering divisibility rules for 2, 3, 4, 5, 6, 8, 9, 11 and basics of number classification.",
+                pdf: "1.pdf",
+                videoUrl: "https://youtu.be/fjVTSy2cPD8?si=ANJncrCA26JOQIMV",
+                prompts: ["Check if 8924 is divisible by 4.", "Explain the rule of 11 with an example."]
+            },
+            {
+                day: 2,
+                title: "-",
+                desc: "Understanding factors, multiples, and finding the number of factors.",
+                pdf: "files/day2_factors.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=UkkNjDIltQg",
+                prompts: ["Find the total number of factors for 240.", "Difference between a factor and a multiple."]
+            },
+            {
+                day: 3,
+                title: "-",
+                desc: "Prime vs Composite, Prime Factorization methods.",
+                pdf: "files/day3_primes.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=UkkNjDIltQg",
+                prompts: ["Is 101 a prime number?", "Write the prime factorization of 1080."]
+            },
+            {
+                day: 4,
+                title: "-",
+                desc: "Methods to find HCF: Prime factorization and Division method.",
+                pdf: "files/day4_hcf.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=B_C-pezJhLY",
+                prompts: ["Find HCF of 24, 36, and 60.", "Explain the long division method for HCF."]
+            },
+            {
+                day: 5,
+                title: "LCM (Least Common Multiple)",
+                desc: "Methods to find LCM and relationship between HCF and LCM.",
+                pdf: "files/day5_lcm.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=B_C-pezJhLY",
+                prompts: ["Find LCM of 12, 15, and 20.", "Formula relating HCF, LCM and two numbers."]
+            },
+            {
+                day: 6,
+                title: "Remainder Theorem Basics",
+                desc: "Introduction to remainders and basic modular arithmetic.",
+                pdf: "files/day6_remainder.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=UkkNjDIltQg",
+                prompts: ["Find the remainder when 123 is divided by 5.", "Concept of negative remainders."]
+            },
+            {
+                day: 7,
+                title: "Advanced Remainder Theorems",
+                desc: "Euler's theorem, Fermat's Little Theorem application.",
+                pdf: "files/day7_adv_remainder.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=UkkNjDIltQg",
+                prompts: ["Find remainder of 2^50 divided by 7."]
+            },
+            {
+                day: 8,
+                title: "Unit Digit & Last Two Digits",
+                desc: "Techniques to find the last digit of a power.",
+                pdf: "files/day8_unit_digit.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=UkkNjDIltQg",
+                prompts: ["Find the unit digit of 7^105.", "Cyclicity of numbers."]
+            },
+            {
+                day: 9,
+                title: "Practice: Number Systems I",
+                desc: "Review and practice questions on Divisibility and Primes.",
+                pdf: "files/day9_practice.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=UkkNjDIltQg",
+                prompts: ["Solve 20 mixed questions on divisibility."]
+            },
+            {
+                day: 10,
+                title: "Practice: HCF & LCM Word Problems",
+                desc: "Solving real-world problems involving bells tolling, traffic lights, etc.",
+                pdf: "files/day10_practice.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=B_C-pezJhLY",
+                prompts: ["Traffic lights change every 48, 72, 108 sec. When will they change together?"]
+            },
+            {
+                day: 11,
+                title: "Practice: Remainder Theorem",
+                desc: "Deep dive into remainder problems.",
+                pdf: "files/day11_practice.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=UkkNjDIltQg",
+                prompts: ["Solve 15 advanced remainder questions."]
+            },
+            {
+                day: 12,
+                title: "Simplification & Approximations",
+                desc: "BODMAS rule, surds, and indices basics.",
+                pdf: "files/day12_simplification.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=UkkNjDIltQg",
+                prompts: ["Simplify: 15 * 12 / 6 + 4 - 2."]
+            },
+            {
+                day: 13,
+                title: "Number System Sectional Test",
+                desc: "Timed test covering all topics of Module 1.",
+                pdf: "files/day13_test.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=placeholder_test",
+                prompts: ["Take 30 min test.", "Analyze weak areas."]
+            },
+            {
+                day: 14,
+                title: "Buffer Day / Revision",
+                desc: "Revisiting difficult concepts from Module 1.",
+                pdf: "files/day14_revision.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=UkkNjDIltQg",
+                prompts: ["Revise HCF/LCM formulas.", "Revise Prime factorization."]
+            }
+        ]
+    },
+    {
+        module: "Module 2: Arithmetic (Days 15-44)",
+        days: [
+            {
+                day: 15,
+                title: "Percentage Basics",
+                desc: "Fraction to percentage conversion and vice versa.",
+                pdf: "files/day15_percent_basics.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=xEXeHgD3xWg",
+                prompts: ["Convert 3/8 to percentage.", "What is 16.66% in fraction?"]
+            },
+            {
+                day: 16,
+                title: "Percentage Advanced",
+                desc: "Successive percentage changes and consumption problems.",
+                pdf: "files/day16_percent_adv.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=xEXeHgD3xWg",
+                prompts: ["If price increases by 20%, how much to reduce consumption?"]
+            },
+            {
+                day: 17,
+                title: "Profit and Loss Basics",
+                desc: "CP, SP, Profit%, Loss% concepts.",
+                pdf: "files/day17_pl_basics.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=qwdksQyjnQ4",
+                prompts: ["Find profit % if CP=400 and SP=500."]
+            },
+            {
+                day: 18,
+                title: "Profit and Loss Advanced",
+                desc: "Dishonest shopkeeper, markup, and discount problems.",
+                pdf: "files/day18_pl_adv.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=qwdksQyjnQ4",
+                prompts: ["Shopkeeper uses 900g weight instead of 1kg. Find gain %."]
+            },
+            {
+                day: 19,
+                title: "Discount & Market Price",
+                desc: "Successive discounts and MP relations.",
+                pdf: "files/day19_discount.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=qwdksQyjnQ4",
+                prompts: ["Single equivalent discount for 20% and 10%."]
+            },
+            {
+                day: 20,
+                title: "Practice: Percentages & PL",
+                desc: "Mixed bag practice questions.",
+                pdf: "files/day20_practice.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=qwdksQyjnQ4",
+                prompts: ["Solve 25 PL & Discount questions."]
+            },
+            {
+                day: 21,
+                title: "Simple Interest (SI)",
+                desc: "Principal, Rate, Time, Amount formulas.",
+                pdf: "files/day21_si.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=qwdksQyjnQ4",
+                prompts: ["Find SI on 5000 for 3 years at 10%."]
+            },
+            {
+                day: 22,
+                title: "Compound Interest (CI) Basics",
+                desc: "Formula and difference between SI and CI.",
+                pdf: "files/day22_ci.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=qwdksQyjnQ4",
+                prompts: ["Calculate CI on 10000 for 2 years at 5%."]
+            },
+            {
+                day: 23,
+                title: "CI Advanced & Installments",
+                desc: "CI for half-yearly/quarterly, installments basics.",
+                pdf: "files/day23_ci_adv.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=qwdksQyjnQ4",
+                prompts: ["Find difference between SI and CI for 2 years."]
+            },
+            {
+                day: 24,
+                title: "Ratio and Proportion Basics",
+                desc: "Properties of ratios, mean proportion, third proportion.",
+                pdf: "files/day24_ratio.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=xEXeHgD3xWg",
+                prompts: ["If A:B=2:3 and B:C=4:5, find A:B:C."]
+            },
+            {
+                day: 25,
+                title: "Partnership Problems",
+                desc: "Investment x Time = Profit ratio.",
+                pdf: "files/day25_partnership.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=xEXeHgD3xWg",
+                prompts: ["A invests 2000, B invests 3000. Profit ratio?"]
+            },
+            {
+                day: 26,
+                title: "Averages Basics",
+                desc: "Simple average, weighted average.",
+                pdf: "files/day26_average.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=xEXeHgD3xWg",
+                prompts: ["Find average of first 10 prime numbers."]
+            },
+            {
+                day: 27,
+                title: "Averages Advanced",
+                desc: "Replacement problems (batting average, age replacement).",
+                pdf: "files/day27_average_adv.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=xEXeHgD3xWg",
+                prompts: ["Average age of group increases by 2 when a person is replaced."]
+            },
+            {
+                day: 28,
+                title: "Mixtures and Alligations I",
+                desc: "Rule of Alligation, mean price.",
+                pdf: "files/day28_mixtures.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=xEXeHgD3xWg",
+                prompts: ["Mix rice at 20/kg and 30/kg to get 24/kg. Ratio?"]
+            },
+            {
+                day: 29,
+                title: "Mixtures and Alligations II",
+                desc: "Removal and replacement of liquids.",
+                pdf: "files/day29_mixtures_adv.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=xEXeHgD3xWg",
+                prompts: ["Milk and water ratio after multiple replacements."]
+            },
+            {
+                day: 30,
+                title: "Practice: SI, CI, Ratios",
+                desc: "Problem solving session.",
+                pdf: "files/day30_practice.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=qwdksQyjnQ4",
+                prompts: ["Solve 15 SI/CI and 15 Ratio problems."]
+            },
+            {
+                day: 31,
+                title: "Practice: Average & Mixtures",
+                desc: "Problem solving session.",
+                pdf: "files/day31_practice.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=xEXeHgD3xWg",
+                prompts: ["Solve 20 mixture problems."]
+            },
+            {
+                day: 32,
+                title: "Arithmetic Sectional Test 1",
+                desc: "Focus on Percentages, Profit Loss, Interest.",
+                pdf: "files/day32_test.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=placeholder_test",
+                prompts: ["Take 45 min test."]
+            },
+            {
+                day: 33,
+                title: "Arithmetic Sectional Test 2",
+                desc: "Focus on Ratios, Averages, Mixtures.",
+                pdf: "files/day33_test.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=placeholder_test",
+                prompts: ["Take 45 min test."]
+            },
+            {
+                day: 34,
+                title: "Revision: Profit & Loss",
+                desc: "Reviewing tough PL questions.",
+                pdf: "files/day34_rev.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=qwdksQyjnQ4",
+                prompts: ["Review wrong answers from Test 1."]
+            },
+            {
+                day: 35,
+                title: "Revision: CI & Installments",
+                desc: "Reviewing tough CI questions.",
+                pdf: "files/day35_rev.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=qwdksQyjnQ4",
+                prompts: ["Practice 10 installment problems."]
+            },
+            {
+                day: 36,
+                title: "Revision: Mixtures",
+                desc: "Reviewing tough Alligation questions.",
+                pdf: "files/day36_rev.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=xEXeHgD3xWg",
+                prompts: ["Practice 10 replacement problems."]
+            },
+            {
+                day: 37,
+                title: "Advanced Data Interpretation (Arithmetic based)",
+                desc: "Solving DI sets based on Percentages and Ratios.",
+                pdf: "files/day37_di.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=xEXeHgD3xWg",
+                prompts: ["Solve 2 DI sets."]
+            },
+            {
+                day: 38,
+                title: "Practice: Arithmetic Mixed Bag I",
+                desc: "Randomized questions from all Arithmetic topics.",
+                pdf: "files/day38_mixed.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=xEXeHgD3xWg",
+                prompts: ["Speed test: 20 questions in 20 mins."]
+            },
+            {
+                day: 39,
+                title: "Practice: Arithmetic Mixed Bag II",
+                desc: "Randomized questions from all Arithmetic topics.",
+                pdf: "files/day39_mixed.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=xEXeHgD3xWg",
+                prompts: ["Speed test: 20 questions in 20 mins."]
+            },
+            {
+                day: 40,
+                title: "Previous Year Questions: Arithmetic",
+                desc: "Solving past exam questions.",
+                pdf: "files/day40_pyq.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=xEXeHgD3xWg",
+                prompts: ["Solve PYQ from last 3 years."]
+            },
+            {
+                day: 41,
+                title: "Buffer/Catch-up Day",
+                desc: "Complete pending tasks.",
+                pdf: "files/day41_buffer.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=placeholder_buffer",
+                prompts: ["Revise weak topics."]
+            },
+            {
+                day: 42,
+                title: "Mock Test: Arithmetic Full",
+                desc: "Comprehensive test on Module 2.",
+                pdf: "files/day42_test.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=placeholder_test",
+                prompts: ["1 hour test on Arithmetic."]
+            },
+            {
+                day: 43,
+                title: "Test Analysis",
+                desc: "Analyzing mistakes from Mock Test.",
+                pdf: "files/day43_analysis.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=placeholder_analysis",
+                prompts: ["Re-solve incorrect questions."]
+            },
+            {
+                day: 44,
+                title: "Module 2 Wrap-up",
+                desc: "Summary notes creation.",
+                pdf: "files/day44_summary.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=xEXeHgD3xWg",
+                prompts: ["Create formula sheet for Arithmetic."]
+            }
+        ]
+    },
+    {
+        module: "Module 3: Time and Work (Days 45-58)",
+        days: [
+            {
+                day: 45,
+                title: "Time and Work Basics",
+                desc: "Unitary method, LCM method for total work.",
+                pdf: "files/day45_tw_basics.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=RTb4Ren2zSw",
+                prompts: ["A does work in 10 days, B in 15. Together?"]
+            },
+            {
+                day: 46,
+                title: "Work Efficiency",
+                desc: "Efficiency ratio and its relation to time.",
+                pdf: "files/day46_efficiency.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=RTb4Ren2zSw",
+                prompts: ["A is twice as efficient as B. A takes 10 days less."]
+            },
+            {
+                day: 47,
+                title: "Leaving and Joining",
+                desc: "Problems where people leave or join in middle of work.",
+                pdf: "files/day47_leaving.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=RTb4Ren2zSw",
+                prompts: ["A leaves 2 days before completion. Find total time."]
+            },
+            {
+                day: 48,
+                title: "Alternate Days Work",
+                desc: "Concept of working on alternate days.",
+                pdf: "files/day48_alternate.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=RTb4Ren2zSw",
+                prompts: ["A and B work alternatively starting with A."]
+            },
+            {
+                day: 49,
+                title: "Work and Wages",
+                desc: "Distribution of wages based on work done/efficiency.",
+                pdf: "files/day49_wages.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=RTb4Ren2zSw",
+                prompts: ["Distribute wage of 3000 between A and B."]
+            },
+            {
+                day: 50,
+                title: "Pipes and Cisterns I",
+                desc: "Inlet and Outlet pipes basics.",
+                pdf: "files/day50_pipes.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=RTb4Ren2zSw",
+                prompts: ["Pipe A fills in 10h, B empties in 20h. Both open?"]
+            },
+            {
+                day: 51,
+                title: "Pipes and Cisterns II",
+                desc: "Advanced problems with leakages and cycles.",
+                pdf: "files/day51_pipes_adv.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=RTb4Ren2zSw",
+                prompts: ["Leak empties full tank in 10 hours."]
+            },
+            {
+                day: 52,
+                title: "Man-Days-Hours (MDH)",
+                desc: "Chain rule formula: M1D1H1/W1 = M2D2H2/W2.",
+                pdf: "files/day52_mdh.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=RTb4Ren2zSw",
+                prompts: ["10 men do work in 5 days. How many for 2 days?"]
+            },
+            {
+                day: 53,
+                title: "Practice: Time and Work",
+                desc: "Solving 20 mixed questions.",
+                pdf: "files/day53_practice.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=RTb4Ren2zSw",
+                prompts: ["Focus on efficiency problems."]
+            },
+           {
+                day: 54,
+                title: "Practice: Pipes & Cisterns",
+                desc: "Solving 20 mixed questions.",
+                pdf: "files/day54_practice.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=RTb4Ren2zSw",
+                prompts: ["Focus on alternating pipes."]
+            },
+            {
+                day: 55,
+                title: "Time & Work Sectional Test",
+                desc: "Timed test on Module 3.",
+                pdf: "files/day55_test.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=placeholder_test",
+                prompts: ["Take 30 min test."]
+            },
+            {
+                day: 56,
+                title: "Revision: MDH & Wages",
+                desc: "Revisiting specific problem types.",
+                pdf: "files/day56_rev.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=RTb4Ren2zSw",
+                prompts: ["Practice 5 wage distribution questions."]
+            },
+            {
+                day: 57,
+                title: "Advanced T&W Problems",
+                desc: "Complex problems combining multiple concepts.",
+                pdf: "files/day57_adv.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=RTb4Ren2zSw",
+                prompts: ["Solve CAT level T&W questions."]
+            },
+            {
+                day: 58,
+                title: "Module 3 Wrap-up",
+                desc: "Summary and formula sheet.",
+                pdf: "files/day58_summary.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=RTb4Ren2zSw",
+                prompts: ["Create T&W cheat sheet."]
+            }
+        ]
+    },
+    {
+        module: "Module 4: Time, Speed, and Distance (Days 59-72)",
+        days: [
+            {
+                day: 59,
+                title: "TSD Basics",
+                desc: "Relationship between Time, Speed, Distance. Unit conversion.",
+                pdf: "files/day59_tsd_basics.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=H0RGxqVbFG8",
+                prompts: ["Convert 72 km/hr to m/s.", "Speed = Distance / Time."]
+            },
+            {
+                day: 60,
+                title: "Average Speed",
+                desc: "Harmonic mean formula and general method.",
+                pdf: "files/day60_avg_speed.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=H0RGxqVbFG8",
+                prompts: ["Go at 60kmph, return at 40kmph. Avg speed?"]
+            },
+            {
+                day: 61,
+                title: "Relative Speed",
+                desc: "Objects moving in same and opposite directions.",
+                pdf: "files/day61_relative.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=H0RGxqVbFG8",
+                prompts: ["Two cars moving towards each other at 40 and 60 kmph."]
+            },
+            {
+                day: 62,
+                title: "Problems on Trains I",
+                desc: "Train crossing pole vs platform.",
+                pdf: "files/day62_trains.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=H0RGxqVbFG8",
+                prompts: ["Train length 200m crosses pole in 10s. Speed?"]
+            },
+            {
+                day: 63,
+                title: "Problems on Trains II",
+                desc: "Two trains crossing each other.",
+                pdf: "files/day63_trains_adv.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=H0RGxqVbFG8",
+                prompts: ["Time taken for two trains to cross in opposite direction."]
+            },
+            {
+                day: 64,
+                title: "Boats and Streams Basics",
+                desc: "Upstream and Downstream concepts.",
+                pdf: "files/day64_boats.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=H0RGxqVbFG8",
+                prompts: ["Speed of boat 10, stream 2. Upstream speed?"]
+            },
+            {
+                day: 65,
+                title: "Boats and Streams Advanced",
+                desc: "Calculating distance and average speed in water.",
+                pdf: "files/day65_boats_adv.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=H0RGxqVbFG8",
+                prompts: ["Find distance if total time up & down is 10 hours."]
+            },
+            {
+                day: 66,
+                title: "Races and Circular Motion",
+                desc: "Linear races and circular tracks.",
+                pdf: "files/day66_races.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=H0RGxqVbFG8",
+                prompts: ["A beats B by 100m in 1km race."]
+            },
+            {
+                day: 67,
+                title: "Practice: TSD & Trains",
+                desc: "Solving 20 mixed questions.",
+                pdf: "files/day67_practice.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=H0RGxqVbFG8",
+                prompts: ["Focus on relative speed."]
+            },
+            {
+                day: 68,
+                title: "Practice: Boats & Races",
+                desc: "Solving 20 mixed questions.",
+                pdf: "files/day68_practice.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=H0RGxqVbFG8",
+                prompts: ["Solve circular track problems."]
+            },
+            {
+                day: 69,
+                title: "TSD Sectional Test",
+                desc: "Timed test on Module 4.",
+                pdf: "files/day69_test.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=placeholder_test",
+                prompts: ["Take 30 min test."]
+            },
+            {
+                day: 70,
+                title: "Revision: TSD",
+                desc: "Reviewing difficult concepts.",
+                pdf: "files/day70_rev.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=H0RGxqVbFG8",
+                prompts: ["Revise Races concepts."]
+            },
+            {
+                day: 71,
+                title: "Buffer Day",
+                desc: "Practice pending questions.",
+                pdf: "files/day71_buffer.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=placeholder_buffer",
+                prompts: ["Complete backlog."]
+            },
+            {
+                day: 72,
+                title: "Module 4 Wrap-up",
+                desc: "Formulas and summary.",
+                pdf: "files/day72_summary.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=H0RGxqVbFG8",
+                prompts: ["Create TSD formula sheet."]
+            }
+        ]
+    },
+    {
+        module: "Module 5: Algebra (Days 73-82)",
+        days: [
+            {
+                day: 73,
+                title: "Algebraic Identities",
+                desc: "Basic identities (a+b)^2, etc. and applications.",
+                pdf: "files/day73_identities.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=8eP5AvKJJvE",
+                prompts: ["Evaluate 102^2 using identity."]
+            },
+            {
+                day: 74,
+                title: "Linear Equations",
+                desc: "Solving linear equations in 1 and 2 variables.",
+                pdf: "files/day74_linear.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=EJtBR75OEFU",
+                prompts: ["Solve for x and y: 2x+3y=12, x-y=1."]
+            },
+            {
+                day: 75,
+                title: "Quadratic Equations Basics",
+                desc: "Roots of equation, factorization method.",
+                pdf: "files/day75_quadratic.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=8eP5AvKJJvE",
+                prompts: ["Find roots of x^2 - 5x + 6 = 0."]
+            },
+            {
+                day: 76,
+                title: "Quadratic Equations Advanced",
+                desc: "Nature of roots, discriminant, sum and product of roots.",
+                pdf: "files/day76_quadratic_adv.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=8eP5AvKJJvE",
+                prompts: ["If roots are equal, find value of k."]
+            },
+            {
+                day: 77,
+                title: "Problems on Ages",
+                desc: "Word problems based on ages (Linear equations application).",
+                pdf: "files/day77_ages.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=XSNfI2EgOKg",
+                prompts: ["Father is 3 times as old as son. 5 years ago..."]
+            },
+            {
+                day: 78,
+                title: "Inequalities Basics",
+                desc: "Solving linear and quadratic inequalities.",
+                pdf: "files/day78_inequalities.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=8eP5AvKJJvE",
+                prompts: ["Solve x^2 - 4 < 0."]
+            },
+            {
+                day: 79,
+                title: "Practice: Algebra",
+                desc: "Mixed algebra questions.",
+                pdf: "files/day79_practice.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=8eP5AvKJJvE",
+                prompts: ["Solve 20 Algebra questions."]
+            },
+            {
+                day: 80,
+                title: "Practice: Ages & Equations",
+                desc: "Word problems practice.",
+                pdf: "files/day80_practice.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=XSNfI2EgOKg",
+                prompts: ["Solve 15 Age problems."]
+            },
+            {
+                day: 81,
+                title: "Algebra Sectional Test",
+                desc: "Test on Module 5.",
+                pdf: "files/day81_test.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=placeholder_test",
+                prompts: ["Take 30 min test."]
+            },
+            {
+                day: 82,
+                title: "Module 5 Wrap-up",
+                desc: "Revision of Algebra formulas.",
+                pdf: "files/day82_summary.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=8eP5AvKJJvE",
+                prompts: ["Review roots properties."]
+            }
+        ]
+    },
+    {
+        module: "Module 6: Probability & Permutations (Days 83-90)",
+        days: [
+            {
+                day: 83,
+                title: "Counting Principles",
+                desc: "Addition and Multiplication rules of counting.",
+                pdf: "files/day83_counting.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=8kvqSY1-W5Y",
+                prompts: ["Ways to travel from A to C via B."]
+            },
+            {
+                day: 84,
+                title: "Permutations Basics",
+                desc: "Arrangement of distinct items (nPr).",
+                pdf: "files/day84_permutation.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=8kvqSY1-W5Y",
+                prompts: ["Arrangements of word CAT."]
+            },
+            {
+                day: 85,
+                title: "Combinations Basics",
+                desc: "Selection of items (nCr).",
+                pdf: "files/day85_combination.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=8kvqSY1-W5Y",
+                prompts: ["Select 3 players from 10."]
+            },
+            {
+                day: 86,
+                title: "Permutations Advanced",
+                desc: "Arrangement with identical items, circular permutation.",
+                pdf: "files/day86_perm_adv.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=8kvqSY1-W5Y",
+                prompts: ["Arrangements of word APPLE."]
+            },
+            {
+                day: 87,
+                title: "Probability Basics",
+                desc: "Definition, sample space, event probability.",
+                pdf: "files/day87_prob_basics.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=8kvqSY1-W5Y",
+                prompts: ["Probability of getting heads in coin toss."]
+            },
+            {
+                day: 88,
+                title: "Probability Advanced",
+                desc: "Coins, Dice, Cards problems.",
+                pdf: "files/day88_prob_adv.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=8kvqSY1-W5Y",
+                prompts: ["Probability of sum 7 in two dice throw."]
+            },
+            {
+                day: 89,
+                title: "Practice: P&C and Probability",
+                desc: "Mixed questions on Module 6.",
+                pdf: "files/day89_practice.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=8kvqSY1-W5Y",
+                prompts: ["Solve 20 mixed questions."]
+            },
+            {
+                day: 90,
+                title: "Final Review & Course Completion",
+                desc: "Final overview of the entire 90-day journey.",
+                pdf: "files/day90_final.pdf",
+                videoUrl: "https://www.youtube.com/watch?v=xEXeHgD3xWg",
+                prompts: ["Plan for full length mock tests."]
+            }
+        ]
+    }
+];
+
+        // --- DOM ELEMENTS ---
+        const navContainer = document.getElementById('nav-container');
+        const mainContent = document.getElementById('main-content');
+        const welcomeScreen = document.getElementById('welcome-screen');
+        const dayContent = document.getElementById('day-content');
+        const sidebar = document.getElementById('sidebar');
+        const overlay = document.getElementById('overlay');
+        
+        // Content Elements
+        const elModule = document.getElementById('content-module');
+        const elTitle = document.getElementById('content-title');
+        const elDesc = document.getElementById('content-desc');
+        const elVideo = document.getElementById('content-video');
+        const elPrompts = document.getElementById('content-prompts');
+        const currentDayDisplay = document.getElementById('current-day-display');
+        
+        // Resource Element
+        const btnDownloadPdf = document.getElementById('btn-download-pdf');
+
+        let currentDayIndex = 0;
+        let flatDayList = [];
+
+        function getEmbedUrl(url) {
+            if (!url) return "";
+            if (url.includes("/embed/")) return url;
+            let videoId = "";
+            if (url.includes("v=")) videoId = url.split("v=")[1].split("&")[0];
+            else if (url.includes("youtu.be/")) videoId = url.split("youtu.be/")[1].split("?")[0];
+            return videoId ? `https://www.youtube.com/embed/${videoId}` : url;
+        }
+
+        function init() {
+            flattenData();
+            renderSidebar();
+        }
+
+        function flattenData() {
+            flatDayList = [];
+            curriculumData.forEach(mod => {
+                if(mod.days) {
+                    mod.days.forEach(day => {
+                        day.moduleName = mod.module;
+                        flatDayList.push(day);
+                    });
+                }
+            });
+        }
+
+        function renderSidebar() {
+            navContainer.innerHTML = '';
+            curriculumData.forEach((mod) => {
+                const moduleDiv = document.createElement('div');
+                moduleDiv.className = 'mb-2';
+                const btn = document.createElement('button');
+                btn.className = "w-full text-left px-3 py-2 bg-gray-800 hover:bg-gray-700 rounded flex justify-between items-center text-gray-300 font-medium transition";
+                btn.innerHTML = `<span>${mod.module}</span> <span class="text-xs bg-black px-2 py-1 rounded text-gold">${mod.days.length} Days</span>`;
+                const list = document.createElement('div');
+                list.className = "ml-4 mt-1 border-l border-gray-600 pl-2 space-y-1 hidden"; 
+                btn.onclick = () => { list.classList.toggle('hidden'); btn.classList.toggle('text-gold'); };
+                mod.days.forEach(day => {
+                    const dayLink = document.createElement('button');
+                    dayLink.className = "block w-full text-left text-sm text-gray-400 hover:text-white py-1 px-2 rounded hover:bg-gray-700 transition";
+                    dayLink.innerText = `Day ${day.day}: ${day.title}`;
+                    dayLink.onclick = () => { loadDay(day.day); if(window.innerWidth < 768) toggleSidebar(); };
+                    list.appendChild(dayLink);
+                });
+                moduleDiv.appendChild(btn);
+                moduleDiv.appendChild(list);
+                navContainer.appendChild(moduleDiv);
+            });
+        }
+
+        function loadDay(dayNumber) {
+            const data = flatDayList.find(d => d.day === dayNumber);
+            if (!data) return;
+
+            welcomeScreen.classList.add('hidden');
+            dayContent.classList.remove('hidden');
+            mainContent.scrollTop = 0;
+
+            elModule.innerText = data.moduleName;
+            elTitle.innerText = `Day ${data.day}: ${data.title}`;
+            elDesc.innerText = data.desc;
+            elVideo.src = getEmbedUrl(data.videoUrl);
+            currentDayDisplay.innerText = data.day;
+            
+            // --- UPDATE PDF BUTTON ---
+            if (data.pdf) {
+                btnDownloadPdf.href = data.pdf;
+                btnDownloadPdf.classList.remove('opacity-50', 'pointer-events-none');
+                btnDownloadPdf.innerHTML = `
+                    <svg xmlns="" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                    </svg>
+                    <span class="text-lg">Download PDF</span>
+                `;
+            } else {
+                btnDownloadPdf.href = "#";
+                btnDownloadPdf.classList.add('opacity-50', 'pointer-events-none');
+                btnDownloadPdf.innerHTML = `<span class="text-lg">No PDF Available</span>`;
+            }
+
+            // Prompts
+            elPrompts.innerHTML = '';
+            data.prompts.forEach(p => {
+                const li = document.createElement('li');
+                li.innerText = p;
+                elPrompts.appendChild(li);
+            });
+            currentDayIndex = flatDayList.findIndex(d => d.day === dayNumber);
+        }
+
+        // --- GLOBAL NAV ---
+        document.getElementById('prev-btn').onclick = () => {
+            if (currentDayIndex > 0) loadDay(flatDayList[currentDayIndex - 1].day);
+        };
+        document.getElementById('next-btn').onclick = () => {
+            if (currentDayIndex < flatDayList.length - 1) loadDay(flatDayList[currentDayIndex + 1].day);
+        };
+
+        const menuBtn = document.getElementById('menu-btn');
+        const toggleSidebar = () => {
+            const isClosed = sidebar.classList.contains('-translate-x-full');
+            sidebar.classList.toggle('-translate-x-full', !isClosed);
+            overlay.classList.toggle('hidden', !isClosed);
+        }
+        menuBtn.onclick = toggleSidebar;
+        overlay.onclick = toggleSidebar;
+
+        init();
+    </script>
+</body>
+</html>
