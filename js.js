@@ -237,7 +237,7 @@ const curriculumData = [
         day: 12,
         title: "Recurring Decimals Mastery",
         desc: "Master conversion of recurring decimals to fractions and vice versa.",
-        videoUrl: "https://www.youtube.com/watch?v=xEXeHgD3xWg",
+        videoUrl: "https://youtu.be/IsYp2Qf57Ig?si=n3n2WKYv2WhYuJ-i",
         prompts: [
           "Convert 0.333... to fraction",
           "Convert 0.142857142857... to fraction",
