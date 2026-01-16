@@ -258,7 +258,7 @@ const curriculumData = [
         day: 13,
         title: "Square Roots and Cube Roots Calculation",
         desc: "Learn methods to find square roots and cube roots manually and shortcuts.",
-        videoUrl: "https://www.youtube.com/watch?v=xEXeHgD3xWg",
+        videoUrl: "https://youtu.be/QhcZ-COlEJU?si=YqhhQgzGBNz_sXE2",
         prompts: [
           "Find √1764",
           "Find ∛17576",
