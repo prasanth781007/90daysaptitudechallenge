@@ -2,111 +2,101 @@ const curriculumData = [
   {
     module: "Module 1: Number Systems (Days 1-14)",
     days: [
-      { 
-        day: 1,
-        title: "Divisibility Rules Mastery",
-        desc: "Mastering divisibility rules for numbers 2 through 11. Learn quick techniques to determine if a number is divisible by another without performing full division.",
-        videoUrl: "https://youtu.be/fjVTSy2cPD8",
-        prompts: [
-          "Check if 7,218 is divisible by 3, 6, and 9",
-          "Determine divisibility of 4,325 by 4 and 8",
-          "Apply the 11 divisibility rule to 82,269"
-        ],
-        resources: [
-          { title: "Day 1 Study Material", url: "pdf/1.pdf" }
-        ],
-        quiz: {
-          question: "Which of the following numbers is divisible by both 3 and 11?",
-          options: ["1,254", "1,848", "2,145", "2,376"],
-          answer: 1,
-          explanation: "1,848: Sum of digits = 21 (divisible by 3). Alternate digit sum difference = (1+4) - (8+8) = -11 (divisible by 11)."
-        },
-        tip: "For divisibility by 6, check for both 2 and 3. For 12, check for both 3 and 4."
-      },
-      { 
-        day: 2,
-        title: "Factors and Multiples Fundamentals",
-        desc: "Understanding factors and multiples. Learn how to find all factors of a number efficiently and understand the relationship between factors and multiples.",
-        videoUrl: "https://www.youtube.com/watch?v=UkkNjDIltQg",
-        prompts: [
-          "Find all factors of 72",
-          "List first 10 multiples of 13",
-          "Find common factors of 36 and 48"
-        ],
-        resources: [
-          { title: "Day 2 Study Material", url: "pdf/2.pdf" }
-        ],
-        quiz: {
-          question: "How many factors does 100 have?",
-          options: ["8", "9", "10", "11"],
-          answer: 1,
-          explanation: "100 = 2² × 5². Number of factors = (2+1) × (2+1) = 9."
-        },
-        tip: "Use prime factorization to find total factors: (a+1)(b+1)(c+1)... where a,b,c are exponents."
-      },
-      { 
-        day: 3,
-        title: "Prime and Composite Numbers Exploration",
-        desc: "Understanding prime vs composite numbers. Learn Sieve of Eratosthenes and prime factorization methods.",
-        videoUrl: "https://www.youtube.com/watch?v=UkkNjDIltQg",
-        prompts: [
-          "Identify prime numbers between 1-100",
-          "Prime factorize 420",
-          "Find twin primes up to 50"
-        ],
-        resources: [
-          { title: "Day 3 Study Material", url: "pdf/3.pdf" }
-        ],
-        quiz: {
-          question: "Which of these is a prime number?",
-          options: ["91", "87", "97", "93"],
-          answer: 2,
-          explanation: "97 is only divisible by 1 and itself. 91=7×13, 87=3×29, 93=3×31."
-        },
-        tip: "Check divisibility by primes up to √n to determine if n is prime."
-      },
-      { 
-        day: 4,
-        title: "HCF (GCD) Calculation Methods",
-        desc: "Understanding Highest Common Factor. Learn Euclidean algorithm, prime factorization method, and division method.",
-        videoUrl: "https://www.youtube.com/watch?v=B_C-pezJhLY",
-        prompts: [
-          "Find HCF of 36 and 48",
-          "Use Euclidean algorithm for 1701 and 3768",
-          "Solve word problems using HCF"
-        ],
-        resources: [
-          { title: "Day 4 Study Material", url: "pdf/4.pdf" }
-        ],
-        quiz: {
-          question: "What is the HCF of 24, 36, and 60?",
-          options: ["4", "6", "12", "18"],
-          answer: 2,
-          explanation: "24=2³×3, 36=2²×3², 60=2²×3×5. Common factors: 2²×3 = 12."
-        },
-        tip: "For HCF of multiple numbers, find common prime factors with lowest powers."
-      },
-      { 
-        day: 5,
-        title: "LCM Calculation Techniques",
-        desc: "Understanding Least Common Multiple. Learn prime factorization, division method, and applications.",
-        videoUrl: "https://www.youtube.com/watch?v=B_C-pezJhLY",
-        prompts: [
-          "Find LCM of 12, 15, and 21",
-          "Solve traffic light synchronization problem",
-          "Find smallest number divisible by given numbers"
-        ],
-        resources: [
-          { title: "Day 5 Study Material", url: "pdf/5.pdf" }
-        ],
-        quiz: {
-          question: "What is the LCM of 8, 12, and 15?",
-          options: ["60", "120", "240", "480"],
-          answer: 1,
-          explanation: "8=2³, 12=2²×3, 15=3×5. LCM = 2³×3×5 = 120."
-        },
-        tip: "For LCM, take all prime factors with highest powers."
-      },
+      {
+    day: 1,
+    title: "Divisibility Rules: 2, 3, 5",
+    desc: "Learn basic divisibility rules using last digit and sum of digits methods.",
+    videoUrl: "https://youtu.be/fjVTSy2cPD8",
+    prompts: [
+      "Check if 7,218 is divisible by 2 and 3",
+      "Check if 9,845 is divisible by 5",
+      "Find a number divisible by 2, 3, and 5"
+    ],
+    quiz: {
+      question: "Which number is divisible by 2, 3, and 5?",
+      options: ["1,230", "1,245", "1,215", "1,260"],
+      answer: 0,
+      explanation: "1,230 is even, digit sum is 6, and last digit is 0."
+    },
+    tip: "If a number ends in 0, it is always divisible by 2 and 5."
+  },
+
+  {
+    day: 2,
+    title: "Divisibility Rules: 4, 6, 8",
+    desc: "Understand divisibility using last two digits, last three digits, and combined rules.",
+    videoUrl: "https://youtu.be/fjVTSy2cPD8",
+    prompts: [
+      "Check if 4,316 is divisible by 4",
+      "Check if 5,436 is divisible by 6",
+      "Check if 12,728 is divisible by 8"
+    ],
+    quiz: {
+      question: "Which number is divisible by 8?",
+      options: ["3,124", "4,136", "5,218", "6,342"],
+      answer: 1,
+      explanation: "Last three digits 136 are divisible by 8."
+    },
+    tip: "For divisibility by 6, check both 2 and 3."
+  },
+
+  {
+    day: 3,
+    title: "Divisibility Rules: 9, 10, 11",
+    desc: "Master digit sum, last digit, and alternating sum techniques.",
+    videoUrl: "https://youtu.be/fjVTSy2cPD8",
+    prompts: [
+      "Check if 7,362 is divisible by 9",
+      "Check if 4,890 is divisible by 10",
+      "Apply the divisibility rule for 11 on 82,269"
+    ],
+    quiz: {
+      question: "Which number is divisible by both 9 and 11?",
+      options: ["1,782", "1,848", "2,145", "2,376"],
+      answer: 1,
+      explanation: "Digit sum is 21 and alternating sum difference is 11."
+    },
+    tip: "If a number is divisible by 9, it is always divisible by 3."
+  },
+
+  {
+    day: 4,
+    title: "Divisibility Rules: 12, 14, 15, 16",
+    desc: "Learn composite divisibility rules using combinations of smaller numbers.",
+    videoUrl: "https://youtu.be/fjVTSy2cPD8",
+    prompts: [
+      "Check if 3,456 is divisible by 12",
+      "Check if 4,298 is divisible by 14",
+      "Check if 2,340 is divisible by 15",
+      "Check if 65,536 is divisible by 16"
+    ],
+    quiz: {
+      question: "Which number is divisible by 15?",
+      options: ["1,230", "1,245", "1,218", "1,260"],
+      answer: 0,
+      explanation: "Divisible by both 3 and 5."
+    },
+    tip: "Break composite numbers into prime factors to test divisibility."
+  },
+
+  {
+    day: 5,
+    title: "Divisibility Rules: 18 and 19",
+    desc: "Learn advanced divisibility checks using combinations and special tricks.",
+    videoUrl: "https://youtu.be/fjVTSy2cPD8",
+    prompts: [
+      "Check if 5,418 is divisible by 18",
+      "Check if 4,085 is divisible by 19",
+      "Create your own examples for 18 and 19"
+    ],
+    quiz: {
+      question: "Which number is divisible by 18?",
+      options: ["2,718", "3,456", "4,374", "5,238"],
+      answer: 1,
+      explanation: "Divisible by both 2 and 9."
+    },
+    tip: "For 18, check divisibility by 2 and 9 first."
+  },
       { 
         day: 6,
         title: "Remainder Theorem Fundamentals",
